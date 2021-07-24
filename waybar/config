@@ -1,20 +1,11 @@
-// =============================================================================
-//
-// Waybar configuration
-//
-// Configuration reference: https://github.com/Alexays/Waybar/wiki/Configuration
-//
-// =============================================================================
-
+[
+    // ---------
+    // Top Bar
+    // ---------
 {
-    // -------------------------------------------------------------------------
-    // Global configuration
-    // -------------------------------------------------------------------------
 
     "layer": "top",
-
     "position": "top",
-
     "height": 30,
 
     "modules-left": [
@@ -27,11 +18,10 @@
     ],
     "modules-right": [
         "pulseaudio",
+	"backlight",
 	"network",
-        "memory",
-        "cpu",
-        //"temperature",
         "custom/keyboard-layout",
+    	"idle_inhibitor",
         "battery",
         "tray",
         "clock"
@@ -41,6 +31,13 @@
     // -------------------------------------------------------------------------
     // Modules
     // -------------------------------------------------------------------------
+
+    "backlight": {
+        "format": "<span foreground='#929292'>{icon}</span> {percent}%",
+        "format-icons": [""],
+        "on-scroll-up": "brightnessctl set +2% && brightnessctl -m | cut -d',' -f4 | tr -d '%' > $SWAYSOCK.wob",
+        "on-scroll-down": "brightnessctl set 2%- && brightnessctl -m | cut -d',' -f4 | tr -d '%' > $SWAYSOCK.wob"
+        },
 
     "battery": {
         "interval": 10,
@@ -69,15 +66,6 @@
       "tooltip-format": "<big>{:%Y %B}</big>\n<tt>{calendar}</tt>"
     },
 
-    "cpu": {
-        "interval": 5,
-        "format": "  {usage}%", // Icon: microchip
-        "states": {
-          "warning": 70,
-          "critical": 90
-        }
-    },
-
     "custom/keyboard-layout": {
       "exec": "swaymsg -t get_inputs | grep -m1 'xkb_active_layout_name' | cut -d '\"' -f4",
       // Interval set only as a fallback, as the value is updated by signal
@@ -97,13 +85,12 @@
         "exec-if": "$HOME/.config/waybar/playing.sh 2> /dev/null",
     },
 
-    "memory": {
-        "interval": 5,
-        "format": "  {}%", // Icon: memory
-        "states": {
-            "warning": 70,
-            "critical": 90
-        }
+    "idle_inhibitor": {
+        "format": "{icon}",
+        "format-icons": {
+            "activated": "",
+            "deactivated": "",
+        },
     },
 
     "network": {
@@ -157,6 +144,100 @@
        "on-click": "pavucontrol"
     },
 
+    "tray": {
+        "icon-size": 21,
+        "spacing": 10
+    }
+
+},
+
+    // ---------
+    // Bot Bar
+    // ---------
+
+{
+
+    "layer": "bottom",
+    "position": "bottom",
+    "height": 22,
+
+    "modules-left": [
+        "mpd",
+    ],
+    "modules-center": [
+    	"network#speed",
+    ],
+    "modules-right": [
+        "memory",
+        "cpu",
+        "temperature",
+        "tray",
+    ],
+
+
+    // -------------------------------------------------------------------------
+    // Modules
+    // -------------------------------------------------------------------------
+
+    "cpu": {
+        "interval": 5,
+        "format": "  {usage}%", // Icon: microchip
+        "states": {
+          "warning": 70,
+          "critical": 90
+        }
+    },
+
+    "custom/spotify": {
+        "format": " {}",
+        "interval": 30, // Remove this if your script is endless and write in loop
+        "max-length": 40,
+        "on-click": "playerctl play-pause",
+        "exec": "$HOME/.config/waybar/mediaplayer.sh 2> /dev/null",
+        "exec-if": "$HOME/.config/waybar/playing.sh 2> /dev/null",
+    },
+
+    "memory": {
+        "interval": 5,
+        "format": "  {}%", // Icon: memory
+        "states": {
+            "warning": 70,
+            "critical": 90
+        }
+    },
+
+"mpd": {
+	"format": "{stateIcon} {consumeIcon}{randomIcon}{repeatIcon}{singleIcon}{artist} - {album} - {title} ({elapsedTime:%M:%S}/{totalTime:%M:%S}) ",
+	"format-disconnected": "Disconnected ",
+	"format-stopped": "{consumeIcon}{randomIcon}{repeatIcon}{singleIcon}Stopped ",
+	"interval": 10,
+	"consume-icons": {
+		"on": " " // Icon shows only when "consume" is on
+	},
+	"random-icons": {
+		"off": "<span color=\"#f53c3c\"></span> ", // Icon grayed out when "random" is off
+		"on": " "
+	},
+	"repeat-icons": {
+		"on": " "
+	},
+	"single-icons": {
+		"on": "1 "
+	},
+	"state-icons": {
+		"paused": "",
+		"playing": ""
+	},
+	"tooltip-format": "MPD (connected)",
+	"tooltip-format-disconnected": "MPD (disconnected)"
+},
+
+    "network#speed": {
+        "format-wifi": "<span foreground='#929292'></span> {bandwidthDownBits} <span foreground='#929292'></span> {bandwidthUpBits}",
+        "format-ethernet": "<span foreground='#929292'></span> {bandwidthDownBits} <span foreground='#929292'></span> {bandwidthUpBits}",
+        "interval": 1
+    },
+
     "temperature": {
       "critical-threshold": 80,
       "interval": 5,
@@ -175,5 +256,4 @@
         "icon-size": 21,
         "spacing": 10
     }
-
-}
+}]
