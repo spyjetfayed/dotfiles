@@ -1,0 +1,14 @@
+# position
+width=60%
+x=400
+
+# navigation
+key_up=k
+key_down=j
+
+allow_images=true
+image_size=20px
+
+drun-display_generic=true
+dynamic_lines=true
+gtk_dark=true
