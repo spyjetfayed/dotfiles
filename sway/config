@@ -195,8 +195,8 @@ input "1739:32183:SYNA7DB5:01_06CB:7DB7_Touchpad" {
     bindsym $mod+r mode "resize"
 
 # brightness
-    bindsym --locked XF86MonBrightnessUp   exec brightness higher
-    bindsym --locked XF86MonBrightnessDown exec brightness lower
+    bindsym --locked XF86MonBrightnessUp   exec "brightnessctl set 5%+" 
+    bindsym --locked XF86MonBrightnessDown exec "brightnessctl set 5%-"
 
 # volume
 
