@@ -20,6 +20,9 @@ GRIM_DEFAULT_DIR=$(xdg-user-dir PICTURES)/screenshots
 LANG=en_IN.UTF-8    # locale setting
 LESSHISTFILE=$XDG_DATA_HOME/zsh/lesshst    # lesshst file is created by less
 
+QT_QPA_PLATFORM=wayland		# stops Qt from default X11 backend & instead use native Wayland
+QT_WAYLAND_DISABLE_WINDOWDECORATION="1"	# disable Qt from drawing client-side decorations
+
 XINITRC=$XDG_CONFIG_HOME/X11/xinitrc
 XSERVERRC=$XDG_CONFIG_HOME/X11/xserverrc
 
@@ -31,6 +34,7 @@ path=(	/usr/local/sbin /usr/local/bin /usr/bin
 	$_JAVA_AWT_WM_NONREPARENTING $_JAVA_OPTIONS
 	$GIT $GNUPGHOME $GRADLE_USER_HOME $GRIM_DEFAULT_DIR
 	$LANG $LESSHISTFILE
+	$QT_QPA_PLATFORM $QT_WAYLAND_DISABLE_WINDOWDECORATION
 	$STUDIO_JDK
 	$XDG_DATA_HOME $XDG_CONFIG_HOME $XDG_DATA_DIRS $XDG_CONFIG_DIRS $XDG_CACHE_HOME )
 

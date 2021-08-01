@@ -20,8 +20,9 @@ compinit
 # End of lines added by compinstall
 
 # aias
-alias adstudio="flatpak run com.google.AndroidStudio"
+alias android="wmname LG3D && flatpak run com.google.AndroidStudio"	# without wmname command android studio doesn't display right. any idea why?
 alias firefox="flatpak run org.mozilla.firefox"
 alias flatseal="flatpak run com.github.tchx84.Flatseal"
+#alias joplin="flatpak run net.cozic.joplin_desktop"
+alias okular="flatpak run org.kde.okular"
 alias telegram="flatpak run org.telegram.desktop"
-alias android="flatpak run com.google.AndroidStudio"
