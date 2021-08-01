@@ -29,10 +29,10 @@ syntax on                       "syntax-highlighting
 "   - https://shapeshed.com/vim-netrw/
 "--------------------------------------
 "let g:netrw_banner=0           "hides banner
-let g:netrw_browse_split=4     "1-horizontal 2-vertical 3-new tab 4-previous window
-let g:netrw_liststyle=3
-let g:netrw_winsize=25
-augroup ProjectDrawer       " autostart netrw
-    autocmd!
-    autocmd VimEnter * :Vexplore
-augroup END
+"let g:netrw_browse_split=4     "1-horizontal 2-vertical 3-new tab 4-previous window
+"let g:netrw_liststyle=3
+"let g:netrw_winsize=25
+"augroup ProjectDrawer       " autostart netrw
+    "autocmd!
+    "autocmd VimEnter * :Vexplore
+"augroup END
