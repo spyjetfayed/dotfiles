@@ -14,12 +14,13 @@
         "custom/spotify"
     ],
     "modules-center": [
-        "sway/window"
+        /*"sway/window"*/
+        "custom/dec",
     ],
     "modules-right": [
         "pulseaudio",
-	"backlight",
-	"network",
+	    "backlight",
+	    "network",
         "custom/keyboard-layout",
     	"idle_inhibitor",
         "battery",
@@ -28,9 +29,9 @@
     ],
 
 
-    // -------------------------------------------------------------------------
+    // --------
     // Modules
-    // -------------------------------------------------------------------------
+    // --------
 
     "backlight": {
         "format": "<span foreground='#929292'>{icon}</span> {percent}%",
@@ -61,9 +62,15 @@
 
     "clock": {
       "interval": 10,
-      "format": "{:%a. %b %e, %Y - %l:%M %p}", // Icon: calendar-alt
+      "format": "{:%a. %b %e, %Y - %H:%M}", // Icon: calendar-alt
       "on-click": "gnome-calendar",
-      "tooltip-format": "<big>{:%Y %B          week: %U}</big>\n<tt>{calendar}</tt>"
+      "tooltip-format": "<big>{:%Y %B \t   week: %V }</big>\n<tt>{calendar}</tt>"
+    },
+
+    "custom/dec": {
+        "format": " Sands of Time: {}",
+        "interval": 1,
+        "exec": "$HOME/.config/waybar/decade20.sh 2> /dev/null", 
     },
 
     "custom/keyboard-layout": {
@@ -74,15 +81,6 @@
       // Signal sent by Sway key binding (~/.config/sway/key-bindings)
       "signal": 1, // SIGHUP
       "tooltip": false
-    },
-
-    "custom/spotify": {
-        "format": " {}",
-        "interval": 30, // Remove this if your script is endless and write in loop
-        "max-length": 40,
-        "on-click": "playerctl play-pause",
-        "exec": "$HOME/.config/waybar/mediaplayer.sh 2> /dev/null",
-        "exec-if": "$HOME/.config/waybar/playing.sh 2> /dev/null",
     },
 
     "idle_inhibitor": {
@@ -99,6 +97,23 @@
         "format-ethernet": "  {ifname}: {ipaddr}/{cidr}", // Icon: ethernet
         "format-disconnected": "⚠  Disconnected",
         "tooltip-format": "{ifname}: {ipaddr}"
+    },
+
+    "pulseaudio": {
+       "scroll-step": 1,
+       "format": "{icon}  {volume}%",
+       "format-bluetooth": "{icon}  {volume}%",
+       "format-muted": "",
+       "format-icons": {
+           "headphones": "",
+           "handsfree": "",
+           "headset": "",
+           "phone": "",
+           "portable": "",
+           "car": "",
+           "default": ["", ""]
+       },
+       "on-click": "pavucontrol"
     },
 
     "sway/mode": {
@@ -125,23 +140,6 @@
             "focused": "",
             "default": ""
         }
-    },
-
-    "pulseaudio": {
-       "scroll-step": 1,
-       "format": "{icon}  {volume}%",
-       "format-bluetooth": "{icon}  {volume}%",
-       "format-muted": "",
-       "format-icons": {
-           "headphones": "",
-           "handsfree": "",
-           "headset": "",
-           "phone": "",
-           "portable": "",
-           "car": "",
-           "default": ["", ""]
-       },
-       "on-click": "pavucontrol"
     },
 
     "tray": {
@@ -206,34 +204,34 @@
         }
     },
 
-"mpd": {
-	"format": "{stateIcon} {consumeIcon}{randomIcon}{repeatIcon}{singleIcon}{artist} - {album} - {title} ({elapsedTime:%M:%S}/{totalTime:%M:%S}) ",
-	"format-disconnected": "Disconnected ",
-	"format-stopped": "{consumeIcon}{randomIcon}{repeatIcon}{singleIcon}Stopped ",
-	"interval": 10,
-	"consume-icons": {
-		"on": " " // Icon shows only when "consume" is on
-	},
-	"random-icons": {
-		"off": "<span color=\"#f53c3c\"></span> ", // Icon grayed out when "random" is off
-		"on": " "
-	},
-	"repeat-icons": {
-		"on": " "
-	},
-	"single-icons": {
-		"on": "1 "
-	},
-	"state-icons": {
-		"paused": "",
-		"playing": ""
-	},
-	"tooltip-format": "MPD (connected)",
-	"tooltip-format-disconnected": "MPD (disconnected)"
-},
+    "mpd": {
+        "format": "{stateIcon} {consumeIcon}{randomIcon}{repeatIcon}{singleIcon}{artist} - {album} - {title} ({elapsedTime:%M:%S}/{totalTime:%M:%S}) ",
+        "format-disconnected": "Disconnected ",
+        "format-stopped": "{consumeIcon}{randomIcon}{repeatIcon}{singleIcon}Stopped ",
+        "interval": 10,
+        "consume-icons": {
+            "on": " " // Icon shows only when "consume" is on
+        },
+        "random-icons": {
+            "off": "<span color=\"#f53c3c\"></span> ", // Icon grayed out when "random" is off
+            "on": " "
+        },
+        "repeat-icons": {
+            "on": " "
+        },
+        "single-icons": {
+            "on": "1 "
+        },
+        "state-icons": {
+            "paused": "",
+            "playing": ""
+        },
+        "tooltip-format": "MPD (connected)",
+        "tooltip-format-disconnected": "MPD (disconnected)"
+    },
 
     "network#speed": {
-        "format-wifi": "<span foreground='#929292'></span> {bandwidthDownBits} <span foreground='#929292'></span> {bandwidthUpBits}",
+        "format-wifi": " {bandwidthDownBits}  {bandwidthUpBits}",
         "format-ethernet": "<span foreground='#929292'></span> {bandwidthDownBits} <span foreground='#929292'></span> {bandwidthUpBits}",
         "interval": 1
     },
