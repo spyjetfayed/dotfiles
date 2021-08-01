@@ -3,7 +3,10 @@
 # -- https://github.com/gf3/dotfiles/blob/main/.config/sway/config
 # -- https://github.com/rbnis/dotfiles
 
-### Variables
+
+#------------
+# Variables
+#------------
 
 # Logo key. Use Mod1 for Alt.
 set $mod Mod4
@@ -22,18 +25,26 @@ set $term alacritty
 # on the original workspace that the command was run on.
 set $menu dmenu_path | dmenu | xargs swaymsg exec --
 
-### Output configuration
+
+#----------------------
+# Output configuration
+#----------------------
 
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
 # options: center fill 
-output * bg /home/spixy/Pictures/SpixyWall/jormungand-00.jpg fill
+output * bg /home/spixy/Pictures/SpixyWall/gits-section9-00.jpg fill
 
 # Example configuration:
-#
 #   output HDMI-A-1 resolution 1920x1080 position 1920,0
-#
-# You can get the names of your outputs by running: swaymsg -t get_outputs
+#   Note: You can get the names of your outputs by running: swaymsg -t get_outputs
 
+# Clamshell Mode
+#set $laptop <laptop_output_identifier>
+#bindswitch --reload --locked lid:on output $laptop disable
+#bindswitch --reload --locked lid:off output $laptop enable
+
+# Note: when reloading sway while using clamshell mode, the displays may reset (i.e. both displays will be enabled)
+# 	A bash script needs to be added to stop this.
 
 
 #--------------------
@@ -51,9 +62,10 @@ input "1739:32183:SYNA7DB5:01_06CB:7DB7_Touchpad" {
 # You can get the names of your inputs by running: swaymsg -t get_inputs
 # Read `man 5 sway-input` for more information about this section.
 
-#-------------
+
+#--------------
 # Key bindings
-#-------------
+#--------------
 
 # Basics:
 
@@ -64,7 +76,12 @@ input "1739:32183:SYNA7DB5:01_06CB:7DB7_Touchpad" {
     bindsym $mod+Shift+q kill
 
     # Start your launcher
-    bindsym $mod+d exec $menu
+    #bindsym $mod+d exec $menu
+    # From eloi3n/dotfiles
+    bindsym $mod+d exec --no-startup-id wofi --show drun -p "app:" -L 10    # looks horrible but works!
+    #bindsym $mod+shift+d exec --no-startup-id wofi --show run -p "shell:" -L10
+    #bindsym $mod+s exec --no-startup-id gopass ls --flat | wofi --dmenu -p "password:" -L 10 | xargs --no-run-if-empty
+
 
     # Drag floating windows by holding down $mod and left mouse button.
     # Resize them with right mouse button + $mod.
@@ -133,21 +150,15 @@ input "1739:32183:SYNA7DB5:01_06CB:7DB7_Touchpad" {
 
 # Layout stuff:
 
-    # You can "split" the current object of your focus with
-    # $mod+b or $mod+v, for horizontal and vertical splits
-    # respectively.
     bindsym $mod+b splith
     bindsym $mod+v splitv
 
-    # Switch the current container between different layout styles
     bindsym $mod+s layout stacking
     bindsym $mod+w layout tabbed
     bindsym $mod+e layout toggle split
 
-    # Make the current focus fullscreen
     bindsym $mod+f fullscreen
 
-    # Toggle the current focus between tiling and floating mode
     bindsym $mod+Shift+space floating toggle
 
     # Swap focus between the tiling area and the floating area
@@ -157,40 +168,37 @@ input "1739:32183:SYNA7DB5:01_06CB:7DB7_Touchpad" {
     bindsym $mod+a focus parent
 
 # Scratchpad:
-
-    # Sway has a "scratchpad", which is a bag of holding for windows.
-    # You can send windows there and get them back later.
-
-    # Move the currently focused window to the scratchpad
-    bindsym $mod+Shift+minus move scratchpad
-
-    # Show the next scratchpad window or hide the focused scratchpad window.
-    # If there are multiple scratchpad windows, this command cycles through them.
-    bindsym $mod+minus scratchpad show
+    bindsym $mod+Shift+minus move scratchpad  # move window to scratchpad
+    bindsym $mod+minus scratchpad show        # show/cycle scratchpad
 
 # Resizing containers:
+    mode "resize" {
+        # left will shrink the containers width
+        # right will grow the containers width
+        # up will shrink the containers height
+        # down will grow the containers height
+        bindsym $left resize shrink width 10px
+        bindsym $down resize grow height 10px
+        bindsym $up resize shrink height 10px
+        bindsym $right resize grow width 10px
+    
+        # Ditto, with arrow keys
+        bindsym Left resize shrink width 10px
+        bindsym Down resize grow height 10px
+        bindsym Up resize shrink height 10px
+        bindsym Right resize grow width 10px
+    
+        # Return to default mode
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+    }
+    bindsym $mod+r mode "resize"
 
-mode "resize" {
-    # left will shrink the containers width
-    # right will grow the containers width
-    # up will shrink the containers height
-    # down will grow the containers height
-    bindsym $left resize shrink width 10px
-    bindsym $down resize grow height 10px
-    bindsym $up resize shrink height 10px
-    bindsym $right resize grow width 10px
+# brightness
+    bindsym --locked XF86MonBrightnessUp   exec brightness higher
+    bindsym --locked XF86MonBrightnessDown exec brightness lower
 
-    # Ditto, with arrow keys
-    bindsym Left resize shrink width 10px
-    bindsym Down resize grow height 10px
-    bindsym Up resize shrink height 10px
-    bindsym Right resize grow width 10px
-
-    # Return to default mode
-    bindsym Return mode "default"
-    bindsym Escape mode "default"
-}
-bindsym $mod+r mode "resize"
+# volume
 
 
 #------------
@@ -219,13 +227,24 @@ bar {
     #}
 }
 
-#-----------------
-# Styles
-#-----------------
 
-default_border pixel 4	# sets the highlight margin around window & removes the title bar
+#-------------------
+# Window Decorations 
+#-------------------
+
+default_border pixel 5  # sets the highlight margin around window & removes the title bar
+                        # pixels seem to have no effect, bug??
 gaps inner 5
-#gaps outer 2
+gaps outer 2
+
+# class                 border  backgr. text    indicator child_border
+client.focused          #556064 #fad02c #ffffff #2e9ef4
+#client.focused_inactive #333333 #5f676a #ffffff #484e50   #5f676a
+#client.unfocused        #333333 #222222 #888888 #292d2e   #222222
+#client.urgent           #2f343a #900000 #ffffff #900000   #900000
+#client.placeholder      #000000 #0c0c0c #ffffff #000000   #0c0c0c
+
+#client.background       #ffffff
 
 #-------------------
 # App Configuration
@@ -234,6 +253,7 @@ gaps inner 5
 # opens apps on specific tabs?
 assign [app_id="firefox"] 1
 assign [app_id="keepassxc"] 7
+
 
 #-----------------
 # Startup
@@ -249,6 +269,13 @@ exec swayidle -w \
          timeout 300 'swaylock -f -c 000000' \
          timeout 450 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' \
          before-sleep 'swaylock -f -c 000000'
+
+# wmname: necessary for android studio to display windows properly on sway for now (22/10/2021)
+exec wmname LG3D
+
+# test
+
+
 #-----------------
 # System Config
 #-----------------
