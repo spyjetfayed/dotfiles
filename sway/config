@@ -201,7 +201,7 @@ input "1739:32183:SYNA7DB5:01_06CB:7DB7_Touchpad" {
 # volume
 
 # screen capture
-bindsym $mod+Shift+s exec grim -g "$(slurp)"
+bindsym $mod+Shift+s exec grim -g "$(slurp)" ~/Pictures/screenshots/$(date +%Y%m%d_%Hh%Mm%Ss)_grim.png
 
 #------------
 # Status Bar
