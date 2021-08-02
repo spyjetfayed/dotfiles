@@ -200,6 +200,8 @@ input "1739:32183:SYNA7DB5:01_06CB:7DB7_Touchpad" {
 
 # volume
 
+# screen capture
+bindsym $mod+Shift+s exec grim -g "$(slurp)"
 
 #------------
 # Status Bar
