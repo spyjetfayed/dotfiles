@@ -18,11 +18,11 @@
         "custom/dec",
     ],
     "modules-right": [
-        "pulseaudio",
-	    "backlight",
 	    "network",
         "custom/keyboard-layout",
     	"idle_inhibitor",
+        "pulseaudio",
+	    "backlight",
         "battery",
         "tray",
         "clock"
@@ -113,7 +113,7 @@
            "car": "",
            "default": ["", ""]
        },
-       "on-click": "pavucontrol"
+       "on-click": "alacritty -e pulsemixer"
     },
 
     "sway/mode": {
