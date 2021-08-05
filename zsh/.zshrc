@@ -23,6 +23,6 @@ compinit
 alias android="wmname LG3D && flatpak run com.google.AndroidStudio"	# without wmname command android studio doesn't display right. any idea why?
 alias firefox="flatpak run org.mozilla.firefox"
 alias flatseal="flatpak run com.github.tchx84.Flatseal"
-#alias joplin="flatpak run net.cozic.joplin_desktop"
+alias joplin="~/Documents/Joplin-2.1.8.AppImage&"
 alias okular="flatpak run org.kde.okular"
 alias telegram="flatpak run org.telegram.desktop"
