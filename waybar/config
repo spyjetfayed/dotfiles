@@ -24,7 +24,6 @@
         "pulseaudio",
 	    "backlight",
         "battery",
-        "tray",
         "clock"
     ],
 
@@ -141,12 +140,6 @@
             "default": ""
         }
     },
-
-    "tray": {
-        "icon-size": 21,
-        "spacing": 10
-    }
-
 },
 
     // ---------
@@ -166,10 +159,10 @@
     	"network#speed",
     ],
     "modules-right": [
+        "tray",
         "memory",
         "cpu",
         "temperature",
-        "tray",
     ],
 
 
