@@ -23,7 +23,7 @@ set $term alacritty
 # Your preferred application launcher
 # Note: pass the final command to swaymsg so that the resulting window can be opened
 # on the original workspace that the command was run on.
-set $menu dmenu_path | dmenu | xargs swaymsg exec --
+#set $menu dmenu_path | dmenu | xargs swaymsg exec --
 
 
 #----------------------
@@ -77,8 +77,10 @@ input "1739:32183:SYNA7DB5:01_06CB:7DB7_Touchpad" {
 
     # Start your launcher
     #bindsym $mod+d exec $menu
+
     # From eloi3n/dotfiles
-    bindsym $mod+d exec --no-startup-id wofi --show drun -p "app:" -L 10    # looks horrible but works!
+    bindsym $mod+d exec --no-startup-id wofi --show drun -p "app:" -L 10
+
     #bindsym $mod+shift+d exec --no-startup-id wofi --show run -p "shell:" -L10
     #bindsym $mod+s exec --no-startup-id gopass ls --flat | wofi --dmenu -p "password:" -L 10 | xargs --no-run-if-empty
 
@@ -253,8 +255,11 @@ client.focused          #556064 #fad02c #ffffff #2e9ef4
 #-------------------
 
 # opens apps on specific tabs?
-assign [app_id="firefox"] 1
-assign [app_id="keepassxc"] 7
+assign [app_id="org.mozilla.firefox"] 1
+assign [app_id="Joplin"] 2
+assign [app_id="org.kde.okular"] 4
+assign [app_id="org.telegram.desktop"] 6
+assign [class="KeePassXC"] 7
 
 
 #-----------------
