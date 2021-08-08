@@ -20,8 +20,8 @@ export GRIM_DEFAULT_DIR=$(xdg-user-dir PICTURES)/screenshots
 export LANG=en_IN.UTF-8    # locale setting
 export LESSHISTFILE=$XDG_DATA_HOME/zsh/lesshst    # lesshst file is created by less
 
-export QT_QPA_PLATFORM=wayland		# stops Qt from default X11 backend & instead use native Wayland
-export QT_WAYLAND_DISABLE_WINDOWDECORATION="1"	# disable Qt from drawing client-side decorations
+#export QT_QPA_PLATFORM=wayland		# stops Qt from default X11 backend & instead use native Wayland
+#export QT_WAYLAND_DISABLE_WINDOWDECORATION="1"	# disable Qt from drawing client-side decorations
 
 XINITRC=$XDG_CONFIG_HOME/X11/xinitrc
 XSERVERRC=$XDG_CONFIG_HOME/X11/xserverrc
@@ -30,6 +30,6 @@ XSERVERRC=$XDG_CONFIG_HOME/X11/xserverrc
 
 # -U: unique
 typeset -U PATH path
-path=( /usr/local/sbin /usr/local/bin /usr/bin )
+path=( /usr/local/sbin /usr/local/bin /usr/bin ~/.local/share/applications/ )
 
 export PATH
