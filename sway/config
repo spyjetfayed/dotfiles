@@ -255,11 +255,11 @@ client.focused          #556064 #fad02c #ffffff #2e9ef4
 #-------------------
 
 # opens apps on specific tabs?
-assign [app_id="org.mozilla.firefox"] 1
-assign [app_id="Joplin"] 2
+assign [class="Firefox"] 1
+assign [class="Joplin"] 2
 assign [app_id="org.kde.okular"] 4
 assign [app_id="org.telegram.desktop"] 6
-assign [class="KeePassXC"] 7
+#assign [class="KeePassXC"] 7
 
 
 #-----------------
